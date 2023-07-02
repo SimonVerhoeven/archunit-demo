@@ -3,8 +3,6 @@ package dev.simonverhoeven.archunitdemo;
 import com.tngtech.archunit.junit.AnalyzeClasses;
 import com.tngtech.archunit.junit.ArchTest;
 import com.tngtech.archunit.lang.ArchRule;
-import org.junit.jupiter.api.DisplayNameGeneration;
-import org.junit.jupiter.api.DisplayNameGenerator;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,7 +11,6 @@ import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes;
 import static com.tngtech.archunit.library.GeneralCodingRules.*;
 
 @AnalyzeClasses(packages = "dev.simonverhoeven.archunitdemo")
-@DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 public class BasicValidationTest {
 
     @ArchTest
