@@ -7,6 +7,7 @@ import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RestController;
 
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes;
 import static com.tngtech.archunit.library.GeneralCodingRules.*;
@@ -32,4 +33,10 @@ public class BasicValidationTest {
 
     @ArchTest
     private final ArchRule repository_only_accessed_from_services = classes().that().areAnnotatedWith(Repository.class).should().onlyBeAccessed().byClassesThat().areAnnotatedWith(Service.class);
+
+    @ArchTest
+    private final ArchRule controller_definition = classes()
+            .that().areAnnotatedWith(RestController.class).or().haveSimpleNameEndingWith("Controller")
+            .should().beAnnotatedWith(RestController.class).andShould().haveSimpleNameEndingWith("Controller")
+            .because("Consistency in controller definition and naming");
 }
