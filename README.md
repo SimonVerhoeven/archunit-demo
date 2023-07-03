@@ -2,6 +2,7 @@
 
 ***
 - [About](#about)
+- [Defining what is analyzed](#defining-what-is-analyzed)
 - [Adding ArchUnit to an existing application](#adding-archunit-to-an-existing-application)
 - [Notes](#notes)
 ***
@@ -15,6 +16,17 @@ Why does this matter? It's all about leaving a legacy, and safeguarding it. Duri
 Testing your architecture, is both an aide to ascertain that the architecture is being implemented consistently, and also makes it easier for people onboarding to get a grasp of what it is.
 
 One of the advantages of ArchUnit is also that it "just" another test, and does not need any special infrastructure/new language/... it's just plain old java that can be evaluated with an unit testing lool like JUnit.
+
+***
+
+## Defining what is analyzed
+
+There are a couple of ways to determine what should be analyzed:
+* based upon the class(es)
+* by package(s)
+* a custom location provider
+
+Examples can be found in the `analysismanagement` package
 
 ***
 
