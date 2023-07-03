@@ -1,6 +1,7 @@
 package dev.simonverhoeven.archunitdemo;
 
 import com.tngtech.archunit.junit.AnalyzeClasses;
+import com.tngtech.archunit.junit.ArchIgnore;
 import com.tngtech.archunit.junit.ArchTest;
 import com.tngtech.archunit.lang.ArchRule;
 import org.springframework.stereotype.Repository;
@@ -36,4 +37,10 @@ public class BasicValidationTest {
             .that().areAnnotatedWith(RestController.class).or().haveSimpleNameEndingWith("Controller")
             .should().beAnnotatedWith(RestController.class).andShould().haveSimpleNameEndingWith("Controller")
             .because("Consistency in controller definition and naming");
+
+
+    // We need to use ArchIgnore to ignore ArchTests, JUnit 5's @Disabled has no effect
+    @ArchIgnore
+    @ArchTest
+    private final ArchRule rule_to_be_ignored = classes().should().beEnums();
 }
