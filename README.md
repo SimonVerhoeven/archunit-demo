@@ -64,6 +64,10 @@ There are also 2 extension options for this setup:
 * Violation store: you can set up your own implementation of `ViolationStore` and configure ArchUnit to use it
 * Violation Line Matcher: you can implement your own `ViolationLineMatcher` to to define how occurred violations should be matched with stored violations. 
 
+Furthermore one can also define an `archunit_ignore_patterns.txt` file in the root of the classpath to ignore violations based upon a regex match.
+
+One can also just tailor their .that() to ignore these legacy classes, but that can quickly become quite cumbersome.
+
 ***
 
 ## Notes

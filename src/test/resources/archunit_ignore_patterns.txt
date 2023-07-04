@@ -1,0 +1,3 @@
+# These classes will be replaced soon, so we're not interested in their violations.
+
+.*IgnoredThroughProperties.*
