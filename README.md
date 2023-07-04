@@ -25,6 +25,7 @@ There are a couple of ways to determine what should be analyzed:
 * based upon the class(es)
 * by package(s)
 * a custom location provider
+* using the ClassFileImporter directly on packages/path
 
 Examples can be found in the `analysismanagement` package
 
@@ -72,6 +73,8 @@ It is possible to define easy tests using:
     @ArchTest
     private final ArchRule no_field_injection = NO_CLASSES_SHOULD_USE_FIELD_INJECTION;
 ````
+
+It is not required to use JUnit, you can also import the core archunti dependency to use it with your testing framework.
 
 Now akin to JUnit's `@DisplayNameGenerationReplaceUnderscores.class)` it is possible to overwrite the output to replace the underscores with spaces to make it a tad more readable.
 This is done by creating an `archunit.properties` file in your `test\resources` folder with: `junit.displayName.replaceUnderscoresBySpaces=true`
