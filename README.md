@@ -3,13 +3,14 @@
 ***
 - [About](#about)
 - [Defining what is analyzed](#defining-what-is-analyzed)
+- [Areas](#areas)
 - [Adding ArchUnit to an existing application](#adding-archunit-to-an-existing-application)
 - [Notes](#notes)
 ***
 
 ## About
 
-[ArchUnit](https://www.archunit.org/) allows us to test our architecture.
+[ArchUnit](https://www.archunit.org/) allows us to test our architecture (layering/slicing/(naming) conventions, ...)
 
 Why does this matter? It's all about leaving a legacy, and safeguarding it. During the lifecycle of a project people might shift role, switch role, join the team, ... And might not be aware of the conventions within the team/organization. 
 
@@ -28,6 +29,60 @@ There are a couple of ways to determine what should be analyzed:
 * using the ClassFileImporter directly on packages/path
 
 Examples can be found in the `analysismanagement` package
+
+***
+
+## Areas
+
+### Core
+
+This contains well, the Core api of ArchUnit which offers us ways to access fields, methods, classes, ... (`JavaMethod, JavaField, getMethods(), getRawParametersTypes(), ...`) 
+
+And we can import these using certain provided apis (cfr `dev.simonverhoeven.archunitdemo.analysismanagement\ClassFileImporterTest.java` for some samples albeit there certainly are a lot more options)
+
+As seen you can also add `ImportOptions` to further narrow what's imported. There are also certain predefined ones such as `ImportOption.Predefined.DO_NOT_INCLUDE_JARS`.
+
+A sample of a rule to verify that classes under service do not access anything in the controller package:
+
+````Java
+final var importedClasses = new ClassFileImporter().importPackages("dev.simonverhoeven.archunitdemo.servicecontroller");
+final var services = importedClasses.stream()
+        .filter(clazz -> clazz.isAnnotatedWith(Service.class) || clazz.getName().contains(".service."))
+        .collect(Collectors.toSet());
+
+services.forEach(service -> {
+    service.getAccessesFromSelf().forEach(access -> {
+        final var targetName = access.getTargetOwner().getName();
+
+        if (targetName.contains(".controller.")) {
+            final var message = String.format("Service %s accesses Controller %s in line %d",
+                    service.getName(), targetName, access.getLineNumber());
+            fail(message);
+        }
+    });
+});
+````
+
+As you can see this is a tad cumbersome, and this is where the higher level Lang api comes into play
+
+### Lang
+
+The lang api offers us some nice functionalities to be more expressive about our architectural concepts.
+
+We can rewrite the Core sample to something pretty similiar using:
+
+````Java
+final var importedClasses = new ClassFileImporter().importPackages("dev.simonverhoeven.archunitdemo.servicecontroller");
+final var rule = ArchRuleDefinition.noClasses()
+        .that().resideInAPackage("..service..")
+        .should().accessClassesThat().resideInAPackage("..controller..");
+
+rule.check(importedClasses);
+````
+
+### Library
+
+
 
 ***
 
