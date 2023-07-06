@@ -82,7 +82,13 @@ rule.check(importedClasses);
 
 ### Library
 
+The library API offers us some nice convenience functions to easily check some common, but complex patterns
 
+* layered architecture
+* onion architecture
+* slicing
+* General coding roles (literally General such as no usage of Joda time, dependency rules, proxy rules)
+* using plantuml component diagram as rules
 
 ***
 
