@@ -153,9 +153,7 @@ This is to avoid rules that are accidentally checked against nothing.
 
 This behaviour can by overwritten either on a case by case basis
 
-<code>
-classes().should().beEnums()<b>.allowEmptyShould()</b>
-</code>
+<code>classes().should().beEnums()<b>.allowEmptyShould()</b></code>
 
 Or globally by configuring
 ````
