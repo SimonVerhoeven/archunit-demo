@@ -133,13 +133,32 @@ One can also just tailor their .that() to ignore these legacy classes, but that 
 
 ## Notes
 
+1) 
 It is possible to define easy tests using:
 ````Java
     @ArchTest
     private final ArchRule no_field_injection = NO_CLASSES_SHOULD_USE_FIELD_INJECTION;
 ````
 
+2)
 It is not required to use JUnit, you can also import the core archunti dependency to use it with your testing framework.
 
-Now akin to JUnit's `@DisplayNameGenerationReplaceUnderscores.class)` it is possible to overwrite the output to replace the underscores with spaces to make it a tad more readable.
+3)
+Akin to JUnit's `@DisplayNameGenerationReplaceUnderscores.class)` it is possible to overwrite the output to replace the underscores with spaces to make it a tad more readable.
 This is done by creating an `archunit.properties` file in your `test\resources` folder with: `junit.displayName.replaceUnderscoresBySpaces=true`
+
+4) 
+By default ArchUnit will fail on `should()` rules being matched against an empty class set.
+This is to avoid rules that are accidentally checked against nothing.
+
+This behaviour can by overwritten either on a case by case basis
+
+<code>
+classes().should().beEnums()<b>.allowEmptyShould()</b>
+</code>
+
+Or globally by configuring
+````
+archRule.failOnEmptyShould=false
+````
+in archunit.properties
