@@ -5,7 +5,7 @@
 - [Defining what is analyzed](#defining-what-is-analyzed)
 - [Areas](#areas)
 - [Adding ArchUnit to an existing application](#adding-archunit-to-an-existing-application)
-- [Customization(#customization)
+- [Customization](#customization)
 - [Notes](#notes)
 ***
 
