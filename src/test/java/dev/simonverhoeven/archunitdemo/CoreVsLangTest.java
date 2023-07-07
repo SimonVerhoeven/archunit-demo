@@ -2,6 +2,8 @@ package dev.simonverhoeven.archunitdemo;
 
 import com.tngtech.archunit.core.importer.ClassFileImporter;
 import com.tngtech.archunit.lang.syntax.ArchRuleDefinition;
+import org.junit.jupiter.api.DisplayNameGeneration;
+import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Test;
 import org.springframework.stereotype.Service;
 
@@ -9,11 +11,12 @@ import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
+@DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 public class CoreVsLangTest {
 
     // Test that services do not access controllers using the core API
     @Test
-    void core_controllers_notAccessedFromServices() {
+    void core_controllers_not_aaccessed_from_services() {
         final var importedClasses = new ClassFileImporter().importPackages("dev.simonverhoeven.archunitdemo.servicecontroller");
         final var services = importedClasses.stream()
                 .filter(clazz -> clazz.isAnnotatedWith(Service.class) || clazz.getName().contains(".service."))
@@ -33,7 +36,7 @@ public class CoreVsLangTest {
     }
 
     @Test
-    void lang_controllers_notAccessedFromServices() {
+    void lang_controllers_not_accessed_from_services() {
         final var importedClasses = new ClassFileImporter().importPackages("dev.simonverhoeven.archunitdemo.servicecontroller");
         final var rule = ArchRuleDefinition.noClasses()
                 .that().resideInAPackage("..service..")
