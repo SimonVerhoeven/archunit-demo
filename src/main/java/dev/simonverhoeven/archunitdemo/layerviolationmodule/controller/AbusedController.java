@@ -1,10 +1,10 @@
-package dev.simonverhoeven.archunitdemo.servicecontroller.controller;
+package dev.simonverhoeven.archunitdemo.layerviolationmodule.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("abused")
+@RequestMapping("/layerviolation/abused")
 public class AbusedController {
 
     public int answertToLife() {

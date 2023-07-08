@@ -46,7 +46,7 @@ As seen you can also add `ImportOptions` to further narrow what's imported. Ther
 A sample of a rule to verify that classes under service do not access anything in the controller package:
 
 ````Java
-final var importedClasses = new ClassFileImporter().importPackages("dev.simonverhoeven.archunitdemo.servicecontroller");
+final var importedClasses = new ClassFileImporter().importPackages("dev.simonverhoeven.archunitdemo.layerviolationmodule");
 final var services = importedClasses.stream()
         .filter(clazz -> clazz.isAnnotatedWith(Service.class) || clazz.getName().contains(".service."))
         .collect(Collectors.toSet());
@@ -73,7 +73,7 @@ The lang api offers us some nice functionalities to be more expressive about our
 We can rewrite the Core sample to something pretty similiar using:
 
 ````Java
-final var importedClasses = new ClassFileImporter().importPackages("dev.simonverhoeven.archunitdemo.servicecontroller");
+final var importedClasses = new ClassFileImporter().importPackages("dev.simonverhoeven.archunitdemo.layerviolationmodule");
 final var rule = ArchRuleDefinition.noClasses()
         .that().resideInAPackage("..service..")
         .should().accessClassesThat().resideInAPackage("..controller..");

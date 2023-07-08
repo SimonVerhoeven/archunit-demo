@@ -1,6 +1,6 @@
-package dev.simonverhoeven.archunitdemo.servicecontroller.service;
+package dev.simonverhoeven.archunitdemo.layerviolationmodule.service;
 
-import dev.simonverhoeven.archunitdemo.servicecontroller.controller.AbusedController;
+import dev.simonverhoeven.archunitdemo.layerviolationmodule.controller.AbusedController;
 import org.springframework.stereotype.Service;
 
 @Service
