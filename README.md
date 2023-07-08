@@ -93,6 +93,24 @@ The library API offers us some nice convenience functions to easily check some c
 
 ***
 
+## Customization
+
+### Custom rules
+
+We cam also define our own rules that adhere to the general architectural rule of `classes that {PREDICATE} should {CONDITION}` by creating our own implementation of `DescribedPredicate` and `ArchCondition` respectively.
+
+An example can be found [here](src\test\java\dev\simonverhoeven\archunitdemo\customization\CustomPredicateAndConditionTest.java)
+
+### Display format
+
+It is possible to customize the format the generated messages by creating an implementation of `FailureDisplayFormat` and configuring it in `archunit.properties`.
+
+`failureDisplayFormat=dev.simonverhoeven.archunitdemo.customization.UppercasingFailureFormat`
+
+An example implementation can be found [here](src\test\java\dev\simonverhoeven\archunitdemo\customization\UppercasingFailureFormat.java)
+
+***
+
 ## Adding ArchUnit to an existing application
 
 In case you want to add `ArchUnit` to an existing application, you might run into a situation where there are a lot of existing violations, this is where `FreezingArchRule` comes into play. 
@@ -129,16 +147,6 @@ There are also 2 extension options for this setup:
 Furthermore one can also define an `archunit_ignore_patterns.txt` file in the root of the classpath to ignore violations based upon a regex match.
 
 One can also just tailor their .that() to ignore these legacy classes, but that can quickly become quite cumbersome.
-
-***
-
-## Customization
-
-It is possible to customize the format the generated messages by creating an implementation of `FailureDisplayFormat` and configuring it in `archunit.properties`.
-
-`failureDisplayFormat=dev.simonverhoeven.archunitdemo.customization.UppercasingFailureFormat`
-
-An example implementation can be found [here](src\test\java\dev\simonverhoeven\archunitdemo\customization\UppercasingFailureFormat.java)
 
 ***
 
