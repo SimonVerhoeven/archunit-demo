@@ -109,6 +109,11 @@ final var importedClasses = new ClassFileImporter().importPackages("dev.simonver
         architectureRule.check(importedClasses);
 ````
 
+#### Slicing
+
+Using `SlicesRuleDefinition` we can also verify whether our our slices are free of cycles/dependencies on eachother.
+
+An example can be found [here](src\test\java\dev\simonverhoeven\archunitdemo\SliceTest.java) which uses the slicingmodule as verification source.
 
 ***
 
