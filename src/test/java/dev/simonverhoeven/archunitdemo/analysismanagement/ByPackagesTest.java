@@ -8,7 +8,7 @@ import static com.tngtech.archunit.library.GeneralCodingRules.NO_CLASSES_SHOULD_
 
 
 // When we want to define the packages to analyze
-@AnalyzeClasses(packages = "dev.simonverhoeven.archunitdemo.module1")
+@AnalyzeClasses(packages = "dev.simonverhoeven.archunitdemo.basemodule")
 public class ByPackagesTest {
     @ArchTest
     private final ArchRule no_field_injection = NO_CLASSES_SHOULD_USE_FIELD_INJECTION.because("error from package level analysis");

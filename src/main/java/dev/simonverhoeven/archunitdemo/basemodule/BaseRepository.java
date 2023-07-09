@@ -1,9 +1,9 @@
-package dev.simonverhoeven.archunitdemo.module1;
+package dev.simonverhoeven.archunitdemo.basemodule;
 
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class Module1Repository {
+public class BaseRepository {
 
     void doNothing(){};
 }

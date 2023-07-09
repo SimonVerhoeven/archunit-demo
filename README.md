@@ -91,6 +91,25 @@ The library API offers us some nice convenience functions to easily check some c
 * General coding roles (literally General such as no usage of Joda time, dependency rules, proxy rules)
 * using plantuml component diagram as rules
 
+#### layer checks
+
+Thanks to `LayeredArchitecture` we can easily define our layers, and verify the way they are accessed. 
+
+````Java
+final var architectureRule = layeredArchitecture()
+        .consideringAllDependencies()
+        .layer("Controller").definedBy("..controller..")
+        .layer("Service").definedBy("..service..")
+        .layer("Persistence").definedBy("..persistence..")
+        .whereLayer("Controller").mayNotBeAccessedByAnyLayer()
+        .whereLayer("Service").mayOnlyBeAccessedByLayers("Controller")
+        .whereLayer("Persistence").mayOnlyBeAccessedByLayers("Service");
+
+final var importedClasses = new ClassFileImporter().importPackages("dev.simonverhoeven.archunitdemo.layeredmodule");
+        architectureRule.check(importedClasses);
+````
+
+
 ***
 
 ## Customization

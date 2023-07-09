@@ -1,9 +1,9 @@
-package dev.simonverhoeven.archunitdemo.module1;
+package dev.simonverhoeven.archunitdemo.basemodule;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/module1/important")
+@RequestMapping("/basemodule/important")
 public class ImportantContoller {
 }
