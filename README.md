@@ -109,9 +109,36 @@ final var importedClasses = new ClassFileImporter().importPackages("dev.simonver
         architectureRule.check(importedClasses);
 ````
 
+An example can be found [here](src\test\java\dev\simonverhoeven\archunitdemo\LayerTest.java)
+
+***
+
+#### Onion architecture
+
+Using `OnionArchitecture` we define our domain, application services, and adapter and verify whether our classes adhere to these (with optionally some exclusions).
+
+````Java
+@Test
+void onion() {
+    final var rule = onionArchitecture()
+        .domainModels("..domain.model..")
+        .domainServices("..domain.service..")
+        .applicationServices("..application..")
+        .adapter("persistence", "..adapter.persistence..")
+        .adapter("rest", "..adapter.rest..")
+        .ensureAllClassesAreContainedInArchitecture();
+
+    final var importedClasses = new ClassFileImporter().importPackages("dev.simonverhoeven.archunitdemo.onionmodule");
+    rule.check(importedClasses);
+}
+````
+
+An example can be found [here](src\test\java\dev\simonverhoeven\archunitdemo\OnionTest.java) which uses the slicingmodule as verification source. The onion package contains a setup with some violations to demonstrate the validation
+
+
 #### Slicing
 
-Using `SlicesRuleDefinition` we can also verify whether our our slices are free of cycles/dependencies on eachother.
+Using `SlicesRuleDefinition` we can verify whether our slices are free of cycles/dependencies on eachother.
 
 An example can be found [here](src\test\java\dev\simonverhoeven\archunitdemo\SliceTest.java) which uses the slicingmodule as verification source.
 
