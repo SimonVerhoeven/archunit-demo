@@ -1,12 +1,22 @@
 # ArchUnit
 
 ***
-- [About](#about)
-- [Defining what is analyzed](#defining-what-is-analyzed)
-- [Areas](#areas)
-- [Adding ArchUnit to an existing application](#adding-archunit-to-an-existing-application)
-- [Customization](#customization)
-- [Notes](#notes)
+* [About](#about)
+* [Defining what is analyzed](#defining-what-is-analyzed)
+* [Areas](#areas)
+    + [Core](#core)
+    + [Lang](#lang)
+    + [Library](#library)
+        - [layer checks](#layer-checks)
+        - [Onion architecture](#onion-architecture)
+        - [Slicing](#slicing)
+* [Customization](#customization)
+    + [Custom rules](#custom-rules)
+    + [Display format](#display-format)
+* [Architecture metrics](#architecture-metrics)
+* [Adding ArchUnit to an existing application](#adding-archunit-to-an-existing-application)
+* [Notes](#notes)
+* [References](#references)
 ***
 
 ## About
@@ -17,7 +27,7 @@ Why does this matter? It's all about leaving a legacy, and safeguarding it. Duri
 
 Testing your architecture, is both an aide to ascertain that the architecture is being implemented consistently, and also makes it easier for people onboarding to get a grasp of what it is.
 
-One of the advantages of ArchUnit is also that it "just" another test, and does not need any special infrastructure/new language/... it's just plain old java that can be evaluated with an unit testing lool like JUnit.
+One of the advantages of ArchUnit is also that it "just" another test, and does not need any special infrastructure/new language/... it's just plain old java that can be evaluated with an unit testing tool like JUnit.
 
 ***
 
@@ -162,6 +172,19 @@ An example implementation can be found [here](src\test\java\dev\simonverhoeven\a
 
 ***
 
+## Architecture metrics
+
+ArchUnit also allows us to calculate metrics using some well-known software architecture metrics such as:
+
+* Cumulative Dependency Metrics (John Lakos): the basic idea is to calculate the depends on value
+* Component Dependency Metrics (Robert C. Martin): coupling, instability, abstractness, distance from main sequence
+* Visibility metrics (Herbert Dowalil) - relation of visible to hidden elements within a component
+
+examples can be found [here](src\test\java\dev\simonverhoeven\archunitdemo\DependencyMetricsTest.java)
+For more information on these metrics you check out the [references](#references)
+
+***
+
 ## Adding ArchUnit to an existing application
 
 In case you want to add `ArchUnit` to an existing application, you might run into a situation where there are a lot of existing violations, this is where `FreezingArchRule` comes into play. 
@@ -197,7 +220,7 @@ There are also 2 extension options for this setup:
 
 Furthermore one can also define an `archunit_ignore_patterns.txt` file in the root of the classpath to ignore violations based upon a regex match.
 
-One can also just tailor their .that() to ignore these legacy classes, but that can quickly become quite cumbersome.
+One can also just tailor their `.that()` to ignore these legacy classes, but that can quickly become quite cumbersome.
 
 ***
 
@@ -211,7 +234,7 @@ It is possible to define easy tests using:
 ````
 
 2)
-It is not required to use JUnit, you can also import the core archunti dependency to use it with your testing framework.
+It is not required to use JUnit, you can also import the core archunit dependency to use it with your testing framework.
 
 3)
 Akin to JUnit's `@DisplayNameGenerationReplaceUnderscores.class)` it is possible to overwrite the output to replace the underscores with spaces to make it a tad more readable.
@@ -230,3 +253,24 @@ Or globally by configuring
 archRule.failOnEmptyShould=false
 ````
 in archunit.properties
+
+ArchUnit caches all classes by location by default, so that they're reused between different test class runs if the same location combination's been imported already. 
+
+This has two important implications:
+    
+1) garbage collection can lead to a noticeable delay
+2) if you know no other test classes will reuse your imports it might be interesting to deactive the cache.
+
+This cache can be be managed by configuring the `cacheMode`
+````
+@AnalyzeClasses(packages = "dev.simonverhoeven", cacheMode = CacheMode.PER_CLASS)
+````
+
+
+*** 
+
+## References
+
+* Cumulative dependency metrics - Large-Scale C++ Software Design by John Lakos
+* Component dependency metrics - Clean Architecture by Robert C. Martin
+* Visibility metrics - Modular Softwarearchitecture - Herbert Dowalil
