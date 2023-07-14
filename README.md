@@ -259,13 +259,12 @@ ArchUnit caches all classes by location by default, so that they're reused betwe
 This has two important implications:
     
 1) garbage collection can lead to a noticeable delay
-2) if you know no other test classes will reuse your imports it might be interesting to deactive the cache.
+2) if you know no other test classes will reuse your imports it might be interesting to deactivate the cache.
 
-This cache can be be managed by configuring the `cacheMode`
+This cache can be managed by configuring the `cacheMode`
 ````
 @AnalyzeClasses(packages = "dev.simonverhoeven", cacheMode = CacheMode.PER_CLASS)
 ````
-
 
 *** 
 
