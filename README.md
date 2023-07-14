@@ -185,6 +185,25 @@ For more information on these metrics you check out the [references](#references
 
 ***
 
+## Resolution behaviour
+
+By default ArchUnit searches for missing classes (a class within the import scope has a reference to a class outside it) on your classpath.
+Whilst it is useful for rule evaluation to have information about them (interfaces, annotations, ...) it is also a costly affair performance-wise, and might not always be needed(in case they wouldn't impact the ruleset).
+ArchUnit can be configured to create stubs instead which contain some information ( the fully qualified name, methods called, ...) however, some information reliant on the actual class might still be missing (superclasses, annotations, ... i.e. things that need the bytecode of the class).
+
+You can configure this in `archunit.properties`:
+- resolve nothing:
+  `resolveMissingDependenciesFromClassPath=false`
+- partial resolution (everything outside of these 2 packages would be stubbed)
+````
+classResolver=com.tngtech.archunit.core.importer.resolvers.SelectedClassResolverFromClasspath
+classResolver.args=dev.simonverhoeven.imp1,dev.simonverhoeven.imp2
+````
+
+_note_: It is also possible to implement your own `com.tngtech.archunit.core.importer.resolvers.ClassResolver` and configure that one.
+
+***
+
 ## Adding ArchUnit to an existing application
 
 In case you want to add `ArchUnit` to an existing application, you might run into a situation where there are a lot of existing violations, this is where `FreezingArchRule` comes into play. 
