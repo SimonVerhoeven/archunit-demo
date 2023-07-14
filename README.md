@@ -27,7 +27,7 @@ Why does this matter? It's all about leaving a legacy, and safeguarding it. Duri
 
 Testing your architecture, is both an aide to ascertain that the architecture is being implemented consistently, and also makes it easier for people onboarding to get a grasp of what it is.
 
-One of the advantages of ArchUnit is also that it "just" another test, and does not need any special infrastructure/new language/... it's just plain old java that can be evaluated with an unit testing tool like JUnit.
+One of the advantages of ArchUnit is also that it "just" another test, and does not need any special infrastructure/new language/... it's just plain old Java that can be evaluated with a unit testing tool like JUnit.
 
 ***
 
@@ -74,13 +74,13 @@ services.forEach(service -> {
 });
 ````
 
-As you can see this is a tad cumbersome, and this is where the higher level Lang api comes into play
+As you can see this is a tad cumbersome, and this is where the higher-level Lang api comes into play
 
 ### Lang
 
 The lang api offers us some nice functionalities to be more expressive about our architectural concepts.
 
-We can rewrite the Core sample to something pretty similiar using:
+We can rewrite the Core sample to something pretty similar using:
 
 ````Java
 final var importedClasses = new ClassFileImporter().importPackages("dev.simonverhoeven.archunitdemo.layerviolationmodule");
@@ -148,7 +148,7 @@ An example can be found [here](src\test\java\dev\simonverhoeven\archunitdemo\Oni
 
 #### Slicing
 
-Using `SlicesRuleDefinition` we can verify whether our slices are free of cycles/dependencies on eachother.
+Using `SlicesRuleDefinition` we can verify whether our slices are free of cycles/dependencies on each other.
 
 An example can be found [here](src\test\java\dev\simonverhoeven\archunitdemo\SliceTest.java) which uses the slicingmodule as verification source.
 
@@ -158,13 +158,13 @@ An example can be found [here](src\test\java\dev\simonverhoeven\archunitdemo\Sli
 
 ### Custom rules
 
-We cam also define our own rules that adhere to the general architectural rule of `classes that {PREDICATE} should {CONDITION}` by creating our own implementation of `DescribedPredicate` and `ArchCondition` respectively.
+We can also define our own rules that adhere to the general architectural rule of `classes that {PREDICATE} should {CONDITION}` by creating our own implementation of `DescribedPredicate` and `ArchCondition` respectively.
 
 An example can be found [here](src\test\java\dev\simonverhoeven\archunitdemo\customization\CustomPredicateAndConditionTest.java)
 
 ### Display format
 
-It is possible to customize the format the generated messages by creating an implementation of `FailureDisplayFormat` and configuring it in `archunit.properties`.
+It is possible to customize the format of the generated messages by creating an implementation of `FailureDisplayFormat` and configuring it in `archunit.properties`.
 
 `failureDisplayFormat=dev.simonverhoeven.archunitdemo.customization.UppercasingFailureFormat`
 
@@ -193,9 +193,9 @@ In case you want to add `ArchUnit` to an existing application, you might run int
 FreezingArchRule.freeze(//ArchRule to freeze);
 ````
 
-This allows you to "accept" the current state of the issues, which will be stored in plain text files by default. And in subsequent runs only new violations will be reported so one can verify that no new ones are being added.
+This allows you to "accept" the current state of the issues, which will be stored in plain text files by default. And in subsequent runs, only new violations will be reported so one can verify that no new ones are being added.
 
-For example if in this demo project one were to uncomment `dataNew` in `LegacyService` and then run the FreezingValidationTest the test would only complain about the new field since we already acknowledged the existing issue. (see for reference [src\test\resources\frozen](src\test\resources\frozen))
+For example, if in this demo project one were to uncomment `dataNew` in `LegacyService` and then run the FreezingValidationTest the test would only complain about the new field since we already acknowledged the existing issue. (see for reference [src\test\resources\frozen](src\test\resources\frozen))
 
 The default configuration is done in `src\test\resources\archunit.properties`
 
@@ -216,7 +216,7 @@ It is also possible to configure these using system properties
 
 There are also 2 extension options for this setup:
 * Violation store: you can set up your own implementation of `ViolationStore` and configure ArchUnit to use it
-* Violation Line Matcher: you can implement your own `ViolationLineMatcher` to to define how occurred violations should be matched with stored violations. 
+* Violation Line Matcher: you can implement your own `ViolationLineMatcher` to define how occurred violations should be matched with stored violations. 
 
 Furthermore one can also define an `archunit_ignore_patterns.txt` file in the root of the classpath to ignore violations based upon a regex match.
 
@@ -244,7 +244,7 @@ This is done by creating an `archunit.properties` file in your `test\resources` 
 By default ArchUnit will fail on `should()` rules being matched against an empty class set.
 This is to avoid rules that are accidentally checked against nothing.
 
-This behaviour can by overwritten either on a case by case basis
+This behaviour can be overwritten either on a case-by-case basis
 
 <code>classes().should().beEnums()<b>.allowEmptyShould()</b></code>
 
