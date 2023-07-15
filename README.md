@@ -13,7 +13,9 @@
 * [Customization](#customization)
     + [Custom rules](#custom-rules)
     + [Display format](#display-format)
+* [Predefined predicates and conditions](#predefined-predicates-and-conditions)
 * [Architecture metrics](#architecture-metrics)
+* [Resolution behaviour](#resolution-behaviour)
 * [Adding ArchUnit to an existing application](#adding-archunit-to-an-existing-application)
 * [Notes](#notes)
 * [References](#references)
@@ -158,9 +160,10 @@ An example can be found [here](src\test\java\dev\simonverhoeven\archunitdemo\Sli
 
 ### Custom rules
 
-We can also define our own rules that adhere to the general architectural rule of `classes that {PREDICATE} should {CONDITION}` by creating our own implementation of `DescribedPredicate` and `ArchCondition` respectively.
+We can also define our own rules that adhere to the general architectural rule of `classes that {PREDICATE} should {CONDITION}` by creating our own implementation of `DescribedPredicate` and `ArchCondition` respectively in case the predefined rules do not quite fit our needs.
 
-An example can be found [here](src\test\java\dev\simonverhoeven\archunitdemo\customization\CustomPredicateAndConditionTest.java)
+An example can be found [here](src\test\java\dev\simonverhoeven\archunitdemo\customization\CustomPredicateAndConditionTest.java) where we define a predicate for what we think a controller looks like, and our condition with the rules we agreed it should adhere to.
+
 
 ### Display format
 
@@ -169,6 +172,29 @@ It is possible to customize the format of the generated messages by creating an 
 `failureDisplayFormat=dev.simonverhoeven.archunitdemo.customization.UppercasingFailureFormat`
 
 An example implementation can be found [here](src\test\java\dev\simonverhoeven\archunitdemo\customization\UppercasingFailureFormat.java)
+
+***
+
+## Predefined predicates and conditions
+
+Now custom predicates like in the [custom rules](src\test\java\dev\simonverhoeven\archunitdemo\customization\CustomPredicateAndConditionTest.java) example can often be created using predefined elements which ArchUnit tends to put in an inner `Predicates` class in the targeted type.
+
+For example: `JavaClass.Predicates.assignableTo(//clazz);`, and these can also be chained: `JavaClass.Predicates.implement("something").and(JavaClass.Predicates.simpleNameEndingWith("something"))`
+Just like `Predicates` this is also possible for `Conditions`, although giuven their less generic concept they all reside within `ArchConditions`.
+
+For some properties there are interfaces with `Predicates` such as `HasAnnotations`, this can lead to challenges given some predicates thus have the same name.
+Keep in mind when chaining that or expects `DescribedPredicate<? super T>`
+
+````Java
+        // This Will not work given here .and will expect ? super HasAnnotations
+        final ArchCondition<JavaClass> wrongCondition = ArchConditions.beAnnotatedWith(Controller.class).and(ArchConditions.beEnums());
+
+        // This will work since when we apply the enums condition the compiled will see the condition as being for JavaClass
+        ArchCondition<JavaClass> condition = ArchConditions.beAnnotatedWith(RestController.class);
+        condition = condition.and(ArchConditions.notBeEnums());
+````
+
+An example implementation can be found [here](src\test\java\dev\simonverhoeven\archunitdemo\PredefinedPredicatesAndConditionsTest.java)
 
 ***
 
