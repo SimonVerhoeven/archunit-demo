@@ -285,6 +285,9 @@ This cache can be managed by configuring the `cacheMode`
 @AnalyzeClasses(packages = "dev.simonverhoeven", cacheMode = CacheMode.PER_CLASS)
 ````
 
+5)
+It is possible to run ArchUnit rules directly from Maven using the Maven plugin by [Société Générale](https://github.com/societe-generale/arch-unit-maven-plugin)  
+
 *** 
 
 ## References
