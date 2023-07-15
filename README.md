@@ -7,7 +7,7 @@
     + [Core](#core)
     + [Lang](#lang)
     + [Library](#library)
-        - [layer checks](#layer-checks)
+        - [Layer checks](#layer-checks)
         - [Onion architecture](#onion-architecture)
         - [Slicing](#slicing)
 * [Customization](#customization)
@@ -103,7 +103,7 @@ The library API offers us some nice convenience functions to easily check some c
 * General coding roles (literally General such as no usage of Joda time, dependency rules, proxy rules)
 * using plantuml component diagram as rules
 
-#### layer checks
+#### Layer checks
 
 Thanks to `LayeredArchitecture` we can easily define our layers, and verify the way they are accessed. 
 
