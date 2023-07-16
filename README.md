@@ -15,6 +15,7 @@
     + [Custom concepts](#custom-concepts)
     + [Display format](#display-format)
 * [Predefined predicates and conditions](#predefined-predicates-and-conditions)
+* [PlantUML](#plantuml)
 * [Architecture metrics](#architecture-metrics)
 * [Resolution behaviour](#resolution-behaviour)
 * [Adding ArchUnit to an existing application](#adding-archunit-to-an-existing-application)
@@ -219,6 +220,40 @@ An example implementation can be found [here](src\test\java\dev\simonverhoeven\a
 
 ***
 
+## PlantUML
+
+ArchUnit also allows us to import [PlantUML](https://plantuml.com/component-diagram) diagrams and derive our rules from it to validate our imported `JavaClasses`.
+
+One has to use component diagrams, where the classes are associated to components through stereotypes.
+
+<img src="src/test/resources/diagram.svg" alt="The UML diagram used for validation">
+
+````plantuml
+@startuml
+
+[Book] <<..book..>>
+[Author] <<..author..>>
+[Reader] <<..reader..>>
+
+Author --> Book
+Reader --> Book
+
+@enduml
+````
+
+Which we can then use within our test:
+
+````java
+final var diagram = getClass().getClassLoader().getResource("diagram.puml");
+classes().should(adhereToPlantUmlDiagram(diagram, consideringOnlyDependenciesInAnyPackage("..plantmodule.."))).check(importedClasses);
+````
+
+An example implementation can be found [here](src\test\java\dev\simonverhoeven\archunitdemo\PlantUMLTest.java)
+
+__note__: There are certain rules to keep in mind for your diagram which you can find [here](https://www.archunit.org/userguide/html/000_Index.html#_configurations_2)
+
+***
+
 ## Architecture metrics
 
 ArchUnit also allows us to calculate metrics using some well-known software architecture metrics such as:
@@ -248,6 +283,23 @@ classResolver.args=dev.simonverhoeven.imp1,dev.simonverhoeven.imp2
 ````
 
 _note_: It is also possible to implement your own `com.tngtech.archunit.core.importer.resolvers.ClassResolver` and configure that one.
+
+ArchUnit also allows us to configure the maximum number of resolution iterations for a specific type.
+Say we have `A => B => C = D`. On the first iteration `A has B` would be resolved, and on the second iteration `B has C`.
+Now we can configure this maximum iteration depth for the 6 different types in `archunit.properties`, they are:
+
+````
+import.dependencyResolutionProcess.maxIterationsForMemberTypes = 1
+import.dependencyResolutionProcess.maxIterationsForAccessesToTypes = 1
+import.dependencyResolutionProcess.maxIterationsForSupertypes = -1
+import.dependencyResolutionProcess.maxIterationsForEnclosingTypes = -1
+import.dependencyResolutionProcess.maxIterationsForAnnotationTypes = -1
+import.dependencyResolutionProcess.maxIterationsForGenericSignatureTypes = -1
+````
+
+Where a negative value means full resolution, and 0 disables automatic resolution.
+Keep in mind that these should set to a reasonable default, as the depth can have a performance impact in bigger projects.
+
 
 ***
 
@@ -334,6 +386,7 @@ This cache can be managed by configuring the `cacheMode`
 
 5)
 It is possible to run ArchUnit rules directly from Maven using the Maven plugin by [Société Générale](https://github.com/societe-generale/arch-unit-maven-plugin)  
+
 
 *** 
 

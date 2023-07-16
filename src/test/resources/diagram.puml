@@ -1,0 +1,10 @@
+@startuml
+
+[Book] <<..book..>>
+[Author] <<..author..>>
+[Reader] <<..reader..>>
+
+Author --> Book
+Reader --> Book
+
+@enduml
