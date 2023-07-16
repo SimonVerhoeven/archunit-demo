@@ -6,7 +6,7 @@ import java.util.Vector;
 
 @Service
 public class LegacyService {
-    private Vector<String> data = new Vector<>();
+    private final Vector<String> data = new Vector<>();
 //    private Vector<String> dataNew = new Vector<>();
 
     public Vector<String> getData() {

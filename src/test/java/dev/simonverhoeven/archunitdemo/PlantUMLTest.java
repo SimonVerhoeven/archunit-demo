@@ -1,7 +1,6 @@
 package dev.simonverhoeven.archunitdemo;
 
 import com.tngtech.archunit.core.importer.ClassFileImporter;
-import com.tngtech.archunit.library.plantuml.rules.PlantUmlArchCondition;
 import org.junit.jupiter.api.Test;
 
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes;
