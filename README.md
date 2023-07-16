@@ -12,6 +12,7 @@
         - [Slicing](#slicing)
 * [Customization](#customization)
     + [Custom rules](#custom-rules)
+    + [Custom concepts](#custom-concepts)
     + [Display format](#display-format)
 * [Predefined predicates and conditions](#predefined-predicates-and-conditions)
 * [Architecture metrics](#architecture-metrics)
@@ -164,6 +165,26 @@ We can also define our own rules that adhere to the general architectural rule o
 
 An example can be found [here](src\test\java\dev\simonverhoeven\archunitdemo\customization\CustomPredicateAndConditionTest.java) where we define a predicate for what we think a controller looks like, and our condition with the rules we agreed it should adhere to.
 
+### Custom concepts
+
+ArchUnit also allows us to control the type of objects that our different concepts (business modules/modules/slices/...) target using `AbstractClassesTransformer`.
+
+````Java
+ClassesTransformer<JavaField> constantClassFields = new AbstractClassesTransformer<>("Utility fields") {
+    @Override
+    public Iterable<JavaField> doTransform(JavaClasses classes) {
+        Set<JavaField> fields = new HashSet<>();
+        for (JavaClass javaClass : classes) {
+            if (javaClass.getSimpleName().endsWith("Constants")) {
+                fields.addAll(javaClass.getFields());
+            }
+        }
+        return fields;
+    }
+};
+````
+
+An example can be found [here](src\test\java\dev\simonverhoeven\archunitdemo\customization\CustomConceptsTest.java) where we check all our fields in our constants are defined as `Static` and `Final`. You can transform to other concepts such as a BookModule for example.
 
 ### Display format
 
