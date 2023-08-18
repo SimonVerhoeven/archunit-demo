@@ -125,7 +125,7 @@ final var importedClasses = new ClassFileImporter().importPackages("dev.simonver
         architectureRule.check(importedClasses);
 ````
 
-An example can be found [here](src\test\java\dev\simonverhoeven\archunitdemo\LayerTest.java)
+An example can be found in the [LayerTest](src\test\java\dev\simonverhoeven\archunitdemo\LayerTest.java)
 
 ***
 
@@ -149,14 +149,14 @@ void onion() {
 }
 ````
 
-An example can be found [here](src\test\java\dev\simonverhoeven\archunitdemo\OnionTest.java) which uses the slicingmodule as a verification source. The onion package contains a setup with some violations to demonstrate the validation
+An example can be found in the [OnionTest](src\test\java\dev\simonverhoeven\archunitdemo\OnionTest.java) which uses the slicingmodule as a verification source. The onion package contains a setup with some violations to demonstrate the validation
 
 
 #### Slicing
 
 Using `SlicesRuleDefinition` we can verify whether our slices are free of cycles/dependencies on each other.
 
-An example can be found [here](src\test\java\dev\simonverhoeven\archunitdemo\SliceTest.java) which uses the slicingmodule as a verification source.
+An example can be found in the [SliceTest](src\test\java\dev\simonverhoeven\archunitdemo\SliceTest.java) which uses the slicingmodule as a verification source.
 
 ***
 
@@ -166,7 +166,7 @@ An example can be found [here](src\test\java\dev\simonverhoeven\archunitdemo\Sli
 
 We can also define our own rules that adhere to the general architectural rule of `classes that {PREDICATE} should {CONDITION}` by creating our own implementation of `DescribedPredicate` and `ArchCondition` respectively in case the predefined rules do not quite fit our needs.
 
-An example can be found [here](src\test\java\dev\simonverhoeven\archunitdemo\customization\CustomPredicateAndConditionTest.java) where we define a predicate for what we think a controller looks like, and our condition with the rules we agreed it should adhere to.
+An example can be found in the [CustomPredicateAndConditionTest](src\test\java\dev\simonverhoeven\archunitdemo\customization\CustomPredicateAndConditionTest.java) where we define a predicate for what we think a controller looks like, and our condition with the rules we agreed it should adhere to.
 
 ### Custom concepts
 
@@ -187,7 +187,7 @@ ClassesTransformer<JavaField> constantClassFields = new AbstractClassesTransform
 };
 ````
 
-An example can be found [here](src\test\java\dev\simonverhoeven\archunitdemo\customization\CustomConceptsTest.java) where we check all our fields in our constants are defined as `Static` and `Final`. You can transform to other concepts such as a BookModule for example.
+An example can be found in the [CustomConceptsTest](src\test\java\dev\simonverhoeven\archunitdemo\customization\CustomConceptsTest.java) where we check all our fields in our constants are defined as `Static` and `Final`. You can transform to other concepts such as a BookModule for example.
 
 ### Display format
 
@@ -195,7 +195,7 @@ It is possible to customize the format of the generated messages by creating an 
 
 `failureDisplayFormat=dev.simonverhoeven.archunitdemo.customization.UppercasingFailureFormat`
 
-An example implementation can be found [here](src\test\java\dev\simonverhoeven\archunitdemo\customization\UppercasingFailureFormat.java)
+An example implementation can be found in the [UppercasingFailureFormat](src\test\java\dev\simonverhoeven\archunitdemo\customization\UppercasingFailureFormat.java)
 
 ***
 
@@ -207,7 +207,7 @@ For example: `JavaClass.Predicates.assignableTo(//clazz);`, and these can also b
 Just like `Predicates` this is also possible for `Conditions`, although given their less generic concept they all reside within `ArchConditions`.
 
 For some properties there are interfaces with `Predicates` such as `HasAnnotations`, this can lead to challenges given some predicates thus have the same name.
-Keep in mind when chaining that or expects `DescribedPredicate<? super T>`
+Keep in mind when chaining that `or` expects `DescribedPredicate<? super T>`
 
 ````Java
         // This Will not work given here .and will expect ? super HasAnnotations
@@ -218,7 +218,7 @@ Keep in mind when chaining that or expects `DescribedPredicate<? super T>`
         condition = condition.and(ArchConditions.notBeEnums());
 ````
 
-An example implementation can be found [here](src\test\java\dev\simonverhoeven\archunitdemo\PredefinedPredicatesAndConditionsTest.java)
+An example implementation can be found in the [PredefinedPredicatesAndConditionsTest](src\test\java\dev\simonverhoeven\archunitdemo\PredefinedPredicatesAndConditionsTest.java)
 
 ***
 
@@ -250,9 +250,9 @@ final var diagram = getClass().getClassLoader().getResource("diagram.puml");
 classes().should(adhereToPlantUmlDiagram(diagram, consideringOnlyDependenciesInAnyPackage("..plantmodule.."))).check(importedClasses);
 ````
 
-An example implementation can be found [here](src\test\java\dev\simonverhoeven\archunitdemo\PlantUMLTest.java)
+An example implementation can be found in the [PlantUMLTest](src\test\java\dev\simonverhoeven\archunitdemo\PlantUMLTest.java)
 
-__note__: There are certain rules to keep in mind for your diagram which you can find [here](https://www.archunit.org/userguide/html/000_Index.html#_configurations_2)
+__note__: There are certain rules to keep in mind for your diagram which you can find in the [ArchUnit configuration documentation](https://www.archunit.org/userguide/html/000_Index.html#_configurations_2)
 
 ***
 
@@ -264,7 +264,7 @@ ArchUnit also allows us to calculate metrics using some well-known software arch
 * Component Dependency Metrics (Robert C. Martin): coupling, instability, abstractness, distance from the main sequence
 * Visibility metrics (Herbert Dowalil) - relation of visible to hidden elements within a component
 
-examples can be found [here](src\test\java\dev\simonverhoeven\archunitdemo\DependencyMetricsTest.java)
+examples can be found in the [DependencyMetricsTest](src\test\java\dev\simonverhoeven\archunitdemo\DependencyMetricsTest.java)
 For more information on these metrics you check out the [references](#references)
 
 ***
