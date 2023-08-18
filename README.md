@@ -25,13 +25,15 @@
 
 ## About
 
-[ArchUnit](https://www.archunit.org/) allows us to test our architecture (layering/slicing/(naming) conventions, ...)
+[ArchUnit](https://www.archunit.org/) is a library that allows us to test our architecture (layering/slicing/(naming) conventions, ...)
 
-Why does this matter? It's all about leaving a legacy, and safeguarding it. During the lifecycle of a project people might shift role, switch role, join the team, ... And might not be aware of the conventions within the team/organization. 
+Why does this matter? It's all about leaving a legacy and safeguarding it. During the lifecycle of a project, people might shift roles, join the team, ... And might not be aware of the conventions within the team/organization. 
 
-Testing your architecture, is both an aide to ascertain that the architecture is being implemented consistently, and also makes it easier for people onboarding to get a grasp of what that agreed architecture is.
+Testing your architecture is both an aid to ascertain that the architecture is being implemented consistently and also makes it easier for people onboarding to get a grasp of what that agreed architecture is.
 
-One of the advantages of ArchUnit is also that it "just" another test, and does not need any special infrastructure/new language/... it's just plain old Java (or Kotlin) that can be evaluated with a unit testing tool like JUnit.
+One of the advantages of ArchUnit is also that it is "just" another test, and does not need any special infrastructure/new language/... it's just plain old Java (or Kotlin) that can be evaluated with a unit testing tool like JUnit.
+
+Please feel free to clone this repository, so you can easily follow along.
 
 ***
 
@@ -51,9 +53,9 @@ Examples can be found in the `analysismanagement` package
 
 ### Core
 
-This contains well, the Core api of ArchUnit which offers us ways to access fields, methods, classes, ... (`JavaMethod, JavaField, getMethods(), getRawParametersTypes(), ...`) 
+This contains well, the Core API of ArchUnit which offers us ways to access fields, methods, classes, ... (`JavaMethod, JavaField, getMethods(), getRawParametersTypes(), ...`) 
 
-And we can import these using certain provided apis (cfr `dev.simonverhoeven.archunitdemo.analysismanagement\ClassFileImporterTest.java` for some samples albeit there certainly are a lot more options)
+And we can import these using certain provided APIs (see for reference `dev.simonverhoeven.archunitdemo.analysismanagement\ClassFileImporterTest.java` for some samples albeit there certainly are a lot more options)
 
 As seen you can also add `ImportOptions` to further narrow what's imported. There are also certain predefined ones such as `ImportOption.Predefined.DO_NOT_INCLUDE_JARS`.
 
@@ -78,11 +80,11 @@ services.forEach(service -> {
 });
 ````
 
-As you can see this is a tad cumbersome, and this is where the higher-level Lang api comes into play
+As you can see this is a tad cumbersome, and this is where the higher-level Lang API comes into play
 
 ### Lang
 
-The lang api offers us some nice functionalities to be more expressive about our architectural concepts.
+The lang API offers us some nice functionalities to be more expressive about our architectural concepts.
 
 We can rewrite the Core sample to something pretty similar using:
 
@@ -103,7 +105,7 @@ The library API offers us some nice convenience functions to easily check some c
 * onion architecture
 * slicing
 * General coding roles (literally General such as no usage of Joda time, dependency rules, proxy rules)
-* using plantuml component diagram as rules
+* using PLANTUML component diagram as rules
 
 #### Layer checks
 
@@ -147,14 +149,14 @@ void onion() {
 }
 ````
 
-An example can be found [here](src\test\java\dev\simonverhoeven\archunitdemo\OnionTest.java) which uses the slicingmodule as verification source. The onion package contains a setup with some violations to demonstrate the validation
+An example can be found [here](src\test\java\dev\simonverhoeven\archunitdemo\OnionTest.java) which uses the slicingmodule as a verification source. The onion package contains a setup with some violations to demonstrate the validation
 
 
 #### Slicing
 
 Using `SlicesRuleDefinition` we can verify whether our slices are free of cycles/dependencies on each other.
 
-An example can be found [here](src\test\java\dev\simonverhoeven\archunitdemo\SliceTest.java) which uses the slicingmodule as verification source.
+An example can be found [here](src\test\java\dev\simonverhoeven\archunitdemo\SliceTest.java) which uses the slicingmodule as a verification source.
 
 ***
 
@@ -202,7 +204,7 @@ An example implementation can be found [here](src\test\java\dev\simonverhoeven\a
 Now custom predicates like in the [custom rules](src\test\java\dev\simonverhoeven\archunitdemo\customization\CustomPredicateAndConditionTest.java) example can often be created using predefined elements which ArchUnit tends to put in an inner `Predicates` class in the targeted type.
 
 For example: `JavaClass.Predicates.assignableTo(//clazz);`, and these can also be chained: `JavaClass.Predicates.implement("something").and(JavaClass.Predicates.simpleNameEndingWith("something"))`
-Just like `Predicates` this is also possible for `Conditions`, although giuven their less generic concept they all reside within `ArchConditions`.
+Just like `Predicates` this is also possible for `Conditions`, although given their less generic concept they all reside within `ArchConditions`.
 
 For some properties there are interfaces with `Predicates` such as `HasAnnotations`, this can lead to challenges given some predicates thus have the same name.
 Keep in mind when chaining that or expects `DescribedPredicate<? super T>`
@@ -224,7 +226,7 @@ An example implementation can be found [here](src\test\java\dev\simonverhoeven\a
 
 ArchUnit also allows us to import [PlantUML](https://plantuml.com/component-diagram) diagrams and derive our rules from it to validate our imported `JavaClasses`.
 
-One has to use component diagrams, where the classes are associated to components through stereotypes.
+One has to use component diagrams, where the classes are associated with components through stereotypes.
 
 <img src="src/test/resources/diagram.svg" alt="The UML diagram used for validation">
 
@@ -258,8 +260,8 @@ __note__: There are certain rules to keep in mind for your diagram which you can
 
 ArchUnit also allows us to calculate metrics using some well-known software architecture metrics such as:
 
-* Cumulative Dependency Metrics (John Lakos): the basic idea is to calculate the depends on value
-* Component Dependency Metrics (Robert C. Martin): coupling, instability, abstractness, distance from main sequence
+* Cumulative Dependency Metrics (John Lakos): the basic idea is to calculate the depends on the value
+* Component Dependency Metrics (Robert C. Martin): coupling, instability, abstractness, distance from the main sequence
 * Visibility metrics (Herbert Dowalil) - relation of visible to hidden elements within a component
 
 examples can be found [here](src\test\java\dev\simonverhoeven\archunitdemo\DependencyMetricsTest.java)
@@ -298,7 +300,7 @@ import.dependencyResolutionProcess.maxIterationsForGenericSignatureTypes = -1
 ````
 
 Where a negative value means full resolution, and 0 disables automatic resolution.
-Keep in mind that these should set to a reasonable default, as the depth can have a performance impact in bigger projects.
+Keep in mind that these should be set to a reasonable default, as the depth can have a performance impact in bigger projects.
 
 
 ***
@@ -313,7 +315,7 @@ FreezingArchRule.freeze(//ArchRule to freeze);
 
 This allows you to "accept" the current state of the issues, which will be stored in plain text files by default. And in subsequent runs, only new violations will be reported so one can verify that no new ones are being added.
 
-For example, if in this demo project one were to uncomment `dataNew` in `LegacyService` and then run the FreezingValidationTest the test would only complain about the new field since we already acknowledged the existing issue. (see for reference [src\test\resources\frozen](src\test\resources\frozen))
+For example, if in this demo project, one were to uncomment `dataNew` in `LegacyService` and then run the FreezingValidationTest the test would only complain about the new field since we already acknowledged the existing issue. (see for reference [src\test\resources\frozen](src\test\resources\frozen))
 
 The default configuration is done in `src\test\resources\archunit.properties`
 
@@ -352,7 +354,7 @@ It is possible to define easy tests using:
 ````
 
 2)
-It is not required to use JUnit, you can also import the core archunit dependency to use it with your testing framework.
+It is not required to use JUnit, you can also import the core ArchUnit dependency to use it with your testing framework.
 
 3)
 Akin to JUnit's `@DisplayNameGenerationReplaceUnderscores.class)` it is possible to overwrite the output to replace the underscores with spaces to make it a tad more readable.
