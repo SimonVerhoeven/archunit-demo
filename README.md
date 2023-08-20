@@ -210,12 +210,12 @@ For some properties there are interfaces with `Predicates` such as `HasAnnotatio
 Keep in mind when chaining that `or` expects `DescribedPredicate<? super T>`
 
 ````Java
-        // This Will not work given here .and will expect ? super HasAnnotations
-        final ArchCondition<JavaClass> wrongCondition = ArchConditions.beAnnotatedWith(Controller.class).and(ArchConditions.beEnums());
+// This Will not work given here .and will expect ? super HasAnnotations
+final ArchCondition<JavaClass> wrongCondition = ArchConditions.beAnnotatedWith(Controller.class).and(ArchConditions.beEnums());
 
-        // This will work since when we apply the enums condition the compiled will see the condition as being for JavaClass
-        ArchCondition<JavaClass> condition = ArchConditions.beAnnotatedWith(RestController.class);
-        condition = condition.and(ArchConditions.notBeEnums());
+// This will work since when we apply the enums condition the compiled will see the condition as being for JavaClass
+ArchCondition<JavaClass> condition = ArchConditions.beAnnotatedWith(RestController.class);
+condition = condition.and(ArchConditions.notBeEnums());
 ````
 
 An example implementation can be found in the [PredefinedPredicatesAndConditionsTest](src\test\java\dev\simonverhoeven\archunitdemo\PredefinedPredicatesAndConditionsTest.java)
@@ -265,7 +265,7 @@ ArchUnit also allows us to calculate metrics using some well-known software arch
 * Visibility metrics (Herbert Dowalil) - relation of visible to hidden elements within a component
 
 examples can be found in the [DependencyMetricsTest](src\test\java\dev\simonverhoeven\archunitdemo\DependencyMetricsTest.java)
-For more information on these metrics you check out the [references](#references)
+For more information on these metrics, you check out the [references](#references)
 
 ***
 
@@ -325,9 +325,9 @@ And there are a couple of different options:
 freeze.store.default.path=src/test/resources/frozen
 # whether a new store should be created, for a CI build you'll likely want to keep this on the default value of false
 freeze.store.default.allowStoreCreation=true
-# whether the stored violations of frozen rules can be updated, default of true
+# whether the stored violations of frozen rules can be updated, the default is true
 freeze.store.default.allowStoreUpdate=true
-# whether to allow all violations to be refrozen (i.e. update the store with the current state to mark the current violations as accepted, report success)
+# whether to allow all violations to be refrozen (i.e. update the store with the current state to mark the current violations as accepted, and report success)
 freeze.refreeze=false
 ````
 
