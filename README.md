@@ -31,7 +31,7 @@ Why does this matter? It's all about leaving a legacy and safeguarding it. Durin
 
 Testing your architecture is both an aid to ascertain that the architecture is being implemented consistently and also makes it easier for people onboarding to get a grasp of what that agreed architecture is.
 
-One of the advantages of ArchUnit is also that it is "just" another test, and does not need any special infrastructure/new language/... it's just plain old Java (or Kotlin) that can be evaluated with a unit testing tool like JUnit.
+One of the advantages of ArchUnit is also that it is "just" another test, and does not need any special infrastructure/new language/... It's just plain old Java (or Kotlin) that can be evaluated with a unit testing tool like JUnit.
 
 Please feel free to clone this repository, so you can easily follow along.
 
@@ -55,7 +55,7 @@ Examples can be found in the `analysismanagement` package
 
 This contains well, the Core API of ArchUnit which offers us ways to access fields, methods, classes, ... (`JavaMethod, JavaField, getMethods(), getRawParametersTypes(), ...`) 
 
-And we can import these using certain provided APIs (see for reference `dev.simonverhoeven.archunitdemo.analysismanagement\ClassFileImporterTest.java` for some samples albeit there certainly are a lot more options)
+We can import these using certain provided APIs (see for reference `dev.simonverhoeven.archunitdemo.analysismanagement\ClassFileImporterTest.java` for some samples albeit there certainly are a lot more options)
 
 As seen you can also add `ImportOptions` to further narrow what's imported. There are also certain predefined ones such as `ImportOption.Predefined.DO_NOT_INCLUDE_JARS`.
 
