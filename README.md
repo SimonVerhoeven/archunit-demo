@@ -300,7 +300,7 @@ import.dependencyResolutionProcess.maxIterationsForGenericSignatureTypes = -1
 ````
 
 Where a negative value means full resolution, and 0 disables automatic resolution.
-Keep in mind that these should be set to a reasonable default, as the depth can have a performance impact in bigger projects.
+Keep in mind that these should be set to a reasonable default, as the depth can have a performance impact on bigger projects.
 
 
 ***
@@ -313,7 +313,7 @@ In case you want to add `ArchUnit` to an existing application, you might run int
 FreezingArchRule.freeze(//ArchRule to freeze);
 ````
 
-This allows you to "accept" the current state of the issues, which will be stored in plain text files by default. And in subsequent runs, only new violations will be reported so one can verify that no new ones are being added.
+This allows you to "accept" the current state of the issues, which will be stored in plain text files by default. In subsequent runs, only new violations will be reported so one can verify that no new ones are being added.
 
 For example, if in this demo project, one were to uncomment `dataNew` in `LegacyService` and then run the FreezingValidationTest the test would only complain about the new field since we already acknowledged the existing issue. (see for reference [src\test\resources\frozen](src\test\resources\frozen))
 
