@@ -25,9 +25,9 @@
 
 ## About
 
-[ArchUnit](https://www.archunit.org/) is a library that allows us to test our architecture (layering/slicing/(naming) conventions, ...)
+[ArchUnit](https://www.archunit.org/) is a library that allows us to test our architecture (layering/slicing/naming) conventions, ...)
 
-Why does this matter? It's all about leaving a legacy and safeguarding it. During the lifecycle of a project, people might shift roles, join the team, ... And might not be aware of the conventions within the team/organization. 
+Why does this matter? It's all about leaving a legacy and safeguarding it. During the lifecycle of a project, people might shift roles, join the team, ... And might not be aware of the conventions within the team/organisation. 
 
 Testing your architecture is both an aid to ascertain that the architecture is being implemented consistently and also makes it easier for people onboarding to get a grasp of what that agreed architecture is.
 
@@ -53,11 +53,11 @@ Examples can be found in the `analysismanagement` package
 
 ### Core
 
-This contains well, the Core API of ArchUnit which offers us ways to access fields, methods, classes, ... (`JavaMethod, JavaField, getMethods(), getRawParametersTypes(), ...`) 
+This contains well, the Core API of ArchUnit, which offers us ways to access fields, methods, classes, ... (`JavaMethod, JavaField, getMethods(), getRawParametersTypes(), ...`) 
 
-We can import these using certain provided APIs (see for reference `dev.simonverhoeven.archunitdemo.analysismanagement\ClassFileImporterTest.java` for some samples albeit there certainly are a lot more options)
+We can import these using certain provided APIs (see for reference `dev.simonverhoeven.archunitdemo.analysismanagement\ClassFileImporterTest.java` for some samples, albeit there certainly are a lot more options)
 
-As seen you can also add `ImportOptions` to further narrow what's imported. There are also certain predefined ones such as `ImportOption.Predefined.DO_NOT_INCLUDE_JARS`.
+As seen, you can also add `ImportOptions` to further narrow what's imported. There are also certain predefined ones, such as `ImportOption.Predefined.DO_NOT_INCLUDE_JARS`.
 
 A sample of a rule to verify that classes under service do not access anything in the controller package:
 
@@ -80,7 +80,7 @@ services.forEach(service -> {
 });
 ````
 
-As you can see this is a tad cumbersome, and this is where the higher-level Lang API comes into play
+As you can see, this is a tad cumbersome, and this is where the higher-level Lang API comes into play
 
 ### Lang
 
@@ -104,12 +104,12 @@ The library API offers us some nice convenience functions to easily check some c
 * layered architecture
 * onion architecture
 * slicing
-* General coding roles (literally General such as no usage of Joda time, dependency rules, proxy rules)
+* General coding roles (literally General, such as no usage of Joda time, dependency rules, proxy rules)
 * using PLANTUML component diagram as rules
 
 #### Layer checks
 
-Thanks to `LayeredArchitecture` we can easily define our layers, and verify the way they are accessed. 
+Thanks to `LayeredArchitecture,` we can easily define our layers and verify the way they are accessed. 
 
 ````Java
 final var architectureRule = layeredArchitecture()
@@ -131,7 +131,7 @@ An example can be found in the [LayerTest](src\test\java\dev\simonverhoeven\arch
 
 #### Onion architecture
 
-Using `OnionArchitecture` we define our domain, application services, and adapter and verify whether our classes adhere to these (with optionally some exclusions).
+Using `OnionArchitecture`, we define our domain, application services, and adapter and verify whether our classes adhere to these (with optionally some exclusions).
 
 ````Java
 @Test
@@ -149,12 +149,12 @@ void onion() {
 }
 ````
 
-An example can be found in the [OnionTest](src\test\java\dev\simonverhoeven\archunitdemo\OnionTest.java) which uses the slicingmodule as a verification source. The onion package contains a setup with some violations to demonstrate the validation
+An example can be found in the [OnionTest](src\test\java\dev\simonverhoeven\archunitdemo\OnionTest.java), which uses the slicingmodule as a verification source. The onion package contains a setup with some violations to demonstrate the validation
 
 
 #### Slicing
 
-Using `SlicesRuleDefinition` we can verify whether our slices are free of cycles/dependencies on each other.
+Using `SlicesRuleDefinition`, we can verify whether our slices are free of cycles/dependencies on each other.
 
 An example can be found in the [SliceTest](src\test\java\dev\simonverhoeven\archunitdemo\SliceTest.java) which uses the slicingmodule as a verification source.
 
@@ -164,7 +164,7 @@ An example can be found in the [SliceTest](src\test\java\dev\simonverhoeven\arch
 
 ### Custom rules
 
-We can also define our own rules that adhere to the general architectural rule of `classes that {PREDICATE} should {CONDITION}` by creating our own implementation of `DescribedPredicate` and `ArchCondition` respectively in case the predefined rules do not quite fit our needs.
+We can also define our own rules that adhere to the general architectural rule of `classes that {PREDICATE} should {CONDITION}` by creating our own implementation of `DescribedPredicate` and `ArchCondition` respectively, in case the predefined rules do not quite fit our needs.
 
 An example can be found in the [CustomPredicateAndConditionTest](src\test\java\dev\simonverhoeven\archunitdemo\customization\CustomPredicateAndConditionTest.java) where we define a predicate for what we think a controller looks like, and our condition with the rules we agreed it should adhere to.
 
@@ -187,7 +187,7 @@ ClassesTransformer<JavaField> constantClassFields = new AbstractClassesTransform
 };
 ````
 
-An example can be found in the [CustomConceptsTest](src\test\java\dev\simonverhoeven\archunitdemo\customization\CustomConceptsTest.java) where we check all our fields in our constants are defined as `Static` and `Final`. You can transform to other concepts such as a BookModule for example.
+An example can be found in the [CustomConceptsTest](src\test\java\dev\simonverhoeven\archunitdemo\customization\CustomConceptsTest.java) where we check all our fields in our constants are defined as `Static` and `Final`. You can transform into other concepts, such as a BookModule, for example.
 
 ### Display format
 
@@ -201,12 +201,12 @@ An example implementation can be found in the [UppercasingFailureFormat](src\tes
 
 ## Predefined predicates and conditions
 
-Now custom predicates like in the [custom rules](src\test\java\dev\simonverhoeven\archunitdemo\customization\CustomPredicateAndConditionTest.java) example can often be created using predefined elements which ArchUnit tends to put in an inner `Predicates` class in the targeted type.
+Now, custom predicates, like in the [custom rules](src\test\java\dev\simonverhoeven\archunitdemo\customization\CustomPredicateAndConditionTest.java) example, can often be created using predefined elements which ArchUnit tends to put in an inner `Predicates` class in the targeted type.
 
 For example: `JavaClass.Predicates.assignableTo(//clazz);`, and these can also be chained: `JavaClass.Predicates.implement("something").and(JavaClass.Predicates.simpleNameEndingWith("something"))`
-Just like `Predicates` this is also possible for `Conditions`, although given their less generic concept they all reside within `ArchConditions`.
+Just like `Predicates`, this is also possible for `Conditions`, although given their less generic concept, they all reside within `ArchConditions`.
 
-For some properties there are interfaces with `Predicates` such as `HasAnnotations`, this can lead to challenges given some predicates thus have the same name.
+For some properties, there are interfaces with `Predicates` such as `HasAnnotations`, which can lead to challenges, given that some predicates thus have the same name.
 Keep in mind when chaining that `or` expects `DescribedPredicate<? super T>`
 
 ````Java
@@ -252,28 +252,28 @@ classes().should(adhereToPlantUmlDiagram(diagram, consideringOnlyDependenciesInA
 
 An example implementation can be found in the [PlantUMLTest](src\test\java\dev\simonverhoeven\archunitdemo\PlantUMLTest.java)
 
-__note__: There are certain rules to keep in mind for your diagram which you can find in the [ArchUnit configuration documentation](https://www.archunit.org/userguide/html/000_Index.html#_configurations_2)
+__note__: There are certain rules to keep in mind for your diagram, which you can find in the [ArchUnit configuration documentation](https://www.archunit.org/userguide/html/000_Index.html#_configurations_2)
 
 ***
 
 ## Architecture metrics
 
-ArchUnit also allows us to calculate metrics using some well-known software architecture metrics such as:
+ArchUnit also allows us to calculate metrics using some well-known software architecture metrics, such as:
 
-* Cumulative Dependency Metrics (John Lakos): the basic idea is to calculate the depends on the value
+* Cumulative Dependency Metrics (John Lakos): the basic idea is to calculate the dependencies on the value
 * Component Dependency Metrics (Robert C. Martin): coupling, instability, abstractness, distance from the main sequence
 * Visibility metrics (Herbert Dowalil) - relation of visible to hidden elements within a component
 
-examples can be found in the [DependencyMetricsTest](src\test\java\dev\simonverhoeven\archunitdemo\DependencyMetricsTest.java)
-For more information on these metrics, you check out the [references](#references)
+Examples can be found in the [DependencyMetricsTest](src\test\java\dev\simonverhoeven\archunitdemo\DependencyMetricsTest.java)
+For more information on these metrics, you can check out the [references](#references)
 
 ***
 
 ## Resolution behaviour
 
-By default ArchUnit searches for missing classes (a class within the import scope has a reference to a class outside it) on your classpath.
-Whilst it is useful for rule evaluation to have information about them (interfaces, annotations, ...) it is also a costly affair performance-wise, and might not always be needed(in case they wouldn't impact the ruleset).
-ArchUnit can be configured to create stubs instead which contain some information ( the fully qualified name, methods called, ...) however, some information reliant on the actual class might still be missing (superclasses, annotations, ... i.e. things that need the bytecode of the class).
+By default, ArchUnit searches for missing classes (a class within the import scope has a reference to a class outside it) on your classpath.
+Whilst it is useful for rule evaluation to have information about them (interfaces, annotations, ...), it is also a costly affair performance-wise, and might not always be needed(in case they wouldn't impact the ruleset).
+ArchUnit can be configured to create stubs instead, which contain some information ( the fully qualified name, methods called, ...) however, some information reliant on the actual class might still be missing (superclasses, annotations, ... i.e. things that need the bytecode of the class).
 
 You can configure this in `archunit.properties`:
 - resolve nothing:
@@ -287,7 +287,7 @@ classResolver.args=dev.simonverhoeven.imp1,dev.simonverhoeven.imp2
 _note_: It is also possible to implement your own `com.tngtech.archunit.core.importer.resolvers.ClassResolver` and configure that one.
 
 ArchUnit also allows us to configure the maximum number of resolution iterations for a specific type.
-Say we have `A => B => C = D`. On the first iteration `A has B` would be resolved, and on the second iteration `B has C`.
+Say we have `A => B => C = D`. On the first iteration, `A has B` would be resolved, and on the second iteration, `B has C`.
 Now we can configure this maximum iteration depth for the 6 different types in `archunit.properties`, they are:
 
 ````
@@ -313,9 +313,9 @@ In case you want to add `ArchUnit` to an existing application, you might run int
 FreezingArchRule.freeze(//ArchRule to freeze);
 ````
 
-This allows you to "accept" the current state of the issues, which will be stored in plain text files by default. In subsequent runs, only new violations will be reported so one can verify that no new ones are being added.
+This allows you to "accept" the current state of the issues, which will be stored in plain text files by default. In subsequent runs, only new violations will be reported, so one can verify that no new ones are being added.
 
-For example, if in this demo project, one were to uncomment `dataNew` in `LegacyService` and then run the FreezingValidationTest the test would only complain about the new field since we already acknowledged the existing issue. (see for reference [src\test\resources\frozen](src\test\resources\frozen))
+For example, if in this demo project, one were to uncomment `dataNew` in `LegacyService` and then run the FreezingValidationTest, the test would only complain about the new field since we already acknowledged the existing issue. (see for reference [src\test\resources\frozen](src\test\resources\frozen))
 
 The default configuration is done in `src\test\resources\archunit.properties`
 
@@ -338,7 +338,7 @@ There are also 2 extension options for this setup:
 * Violation store: you can set up your own implementation of `ViolationStore` and configure ArchUnit to use it
 * Violation Line Matcher: you can implement your own `ViolationLineMatcher` to define how occurred violations should be matched with stored violations. 
 
-Furthermore one can also define an `archunit_ignore_patterns.txt` file in the root of the classpath to ignore violations based upon a regex match.
+Furthermore, one can also define an `archunit_ignore_patterns.txt` file in the root of the classpath to ignore violations based upon a regex match.
 
 One can also just tailor their `.that()` to ignore these legacy classes, but that can quickly become quite cumbersome.
 
@@ -354,14 +354,14 @@ It is possible to define easy tests using:
 ````
 
 2)
-It is not required to use JUnit, you can also import the core ArchUnit dependency to use it with your testing framework.
+It is not required to use JUnit; you can also import the core ArchUnit dependency to use it with your testing framework.
 
 3)
 Akin to JUnit's `@DisplayNameGenerationReplaceUnderscores.class)` it is possible to overwrite the output to replace the underscores with spaces to make it a tad more readable.
 This is done by creating an `archunit.properties` file in your `test\resources` folder with: `junit.displayName.replaceUnderscoresBySpaces=true`
 
 4) 
-By default ArchUnit will fail on `should()` rules being matched against an empty class set.
+By default, ArchUnit will fail on `should()` rules being matched against an empty class set.
 This is to avoid rules that are accidentally checked against nothing.
 
 This behaviour can be overwritten either on a case-by-case basis
@@ -378,8 +378,8 @@ ArchUnit caches all classes by location by default, so that they're reused betwe
 
 This has two important implications:
     
-1) garbage collection can lead to a noticeable delay
-2) if you know no other test classes will reuse your imports it might be interesting to deactivate the cache.
+1) Garbage collection can lead to a noticeable delay
+2) If you know no other test classes will reuse your imports, it might be interesting to deactivate the cache.
 
 This cache can be managed by configuring the `cacheMode`
 ````
